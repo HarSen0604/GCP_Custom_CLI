@@ -3,7 +3,7 @@ use std::io::{ BufWriter, Write };
 use std::process::{ Command, Stdio };
 
 pub fn run_command(cmd: &str, args: &[&str], log_file: &mut BufWriter<std::fs::File>) -> String {
-    writeln!(log_file, "Running: {} {}", cmd, args.join(" ")).unwrap();
+    writeln!(log_file, "{} {}", cmd, args.join(" ")).unwrap();
     println!("Executing: {} {}", cmd, args.join(" "));
 
     let output = Command::new("sh")
@@ -18,7 +18,6 @@ pub fn run_command(cmd: &str, args: &[&str], log_file: &mut BufWriter<std::fs::F
             let stderr = String::from_utf8_lossy(&output.stderr);
 
             if !stdout.is_empty() {
-                writeln!(log_file, "Output:\n{}", stdout).unwrap();
                 println!("{}", stdout); // Print stdout to console
                 return stdout.to_string();
             }
@@ -26,10 +25,10 @@ pub fn run_command(cmd: &str, args: &[&str], log_file: &mut BufWriter<std::fs::F
             if !stderr.is_empty() {
                 // Check if this is a warning or an error
                 if stderr.to_lowercase().contains("warning") {
-                    writeln!(log_file, "Warning:\n{}", stderr).unwrap();
+                    writeln!(log_file, "\n{}", stderr).unwrap();
                     println!("\x1b[33mWarning:\x1b[0m {}", stderr); // Yellow color for warnings
                 } else {
-                    writeln!(log_file, "Error:\n{}", stderr).unwrap();
+                    writeln!(log_file, "\n{}", stderr).unwrap();
                     println!("\x1b[31mError:\x1b[0m {}", stderr); // Red color for errors
                 }
             }

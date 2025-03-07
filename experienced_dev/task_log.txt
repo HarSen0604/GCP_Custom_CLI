@@ -1,0 +1,12 @@
+gcloud auth list --format=json
+list
+gcloud auth list --format=json
+help
+ssh
+gcloud compute ssh default-instance --zone us-central1-a
+shs ssg --help
+ssh ---help
+gcloud auth list --format=json
+list
+help
+help

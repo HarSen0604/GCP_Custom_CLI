@@ -11,6 +11,7 @@ mod sql;
 use std::collections::HashMap;
 use std::io::BufWriter;
 use crate::utils::run_command;
+use std::io::Write;
 
 // Function to calculate Levenshtein distance between two strings
 fn levenshtein_distance(s1: &str, s2: &str) -> usize {
@@ -132,7 +133,7 @@ fn find_similar_command(input: &str) -> Option<String> {
 pub fn handle_command(
     command: &str,
     args: &HashMap<String, String>,
-    log_file: &mut std::io::BufWriter<std::fs::File>
+    log_file: &mut BufWriter<std::fs::File>
 ) {
     let cmd_parts: Vec<&str> = command.split_whitespace().collect();
 
@@ -140,13 +141,18 @@ pub fn handle_command(
         return;
     }
 
+    // Log the command to the log file
+    if let Err(e) = writeln!(log_file, "{}", command) {
+        eprintln!("\x1b[31m[ERROR] Failed to write to log file: {}\x1b[0m", e);
+    }
+    log_file.flush().unwrap(); // Ensure data is written immediately
+
     // Check for help flags
     if cmd_parts.len() > 1 && cmd_parts[1] == "--help" {
         display_help(Some(cmd_parts[0]));
         return;
     }
 
-    // Combine command parts for better matching
     let full_command = if cmd_parts.len() > 1 {
         format!("{} {}", cmd_parts[0], cmd_parts[1])
     } else {
@@ -236,7 +242,6 @@ pub fn handle_command(
             }
         }
         _ => {
-            // Check for similar commands
             let suggestion = find_similar_command(&full_command);
             println!("\x1b[31m❌ Unknown command: '{}'\x1b[0m", command);
             println!(
