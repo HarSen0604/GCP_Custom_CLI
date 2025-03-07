@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # Set your Gemini API key
-genai.configure(api_key="AIzaSyBUmapZZX9f5dC0darbYQUrHWra7lUJ_oM")
+genai.configure(api_key="api-key-gemini")
 
 # Suppress Google Cloud SDK warnings
 os.environ["CLOUDSDK_CORE_DISABLE_PROMPTS"] = "1"
