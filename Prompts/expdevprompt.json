@@ -1,0 +1,150 @@
+{
+    "Getting Started": {
+        "commands": [
+            {
+                "full": "gcloud init",
+                "short": "init"
+            },
+            {
+                "full": "gcloud version",
+                "short": "version"
+            },
+            {
+                "full": "gcloud info",
+                "short": "info"
+            }
+        ]
+    },
+    "Help": {
+        "commands": [
+            {
+                "full": "gcloud help",
+                "short": "help"
+            },
+            {
+                "full": "gcloud --help",
+                "short": "--help"
+            }
+        ]
+    },
+    "Personalization": {
+        "commands": [
+            {
+                "full": "gcloud config list",
+                "short": "config list"
+            },
+            {
+                "full": "gcloud config set project <PROJECT_ID>",
+                "short": "config set project"
+            }
+        ]
+    },
+    "Credentials": {
+        "commands": [
+            {
+                "full": "gcloud auth login",
+                "short": "auth login"
+            },
+            {
+                "full": "gcloud auth list",
+                "short": "auth list"
+            }
+        ]
+    },
+    "Projects": {
+        "commands": [
+            {
+                "full": "gcloud projects list",
+                "short": "projects list"
+            },
+            {
+                "full": "gcloud projects create <PROJECT_ID>",
+                "short": "projects create"
+            }
+        ]
+    },
+    "IAM": {
+        "commands": [
+            {
+                "full": "gcloud iam roles list",
+                "short": "iam roles list"
+            },
+            {
+                "full": "gcloud iam service-accounts list",
+                "short": "iam sa list"
+            }
+        ]
+    },
+    "Docker & GKE": {
+        "commands": [
+            {
+                "full": "gcloud container clusters list",
+                "short": "gke clusters list"
+            },
+            {
+                "full": "gcloud compute images list",
+                "short": "compute images list"
+            }
+        ]
+    },
+    "Virtual Machines & Compute Engine": {
+        "commands": [
+            {
+                "full": "gcloud compute instances list",
+                "short": "compute instances list"
+            },
+            {
+                "full": "gcloud compute instances create <INSTANCE_NAME>",
+                "short": "compute create"
+            }
+        ]
+    },
+    "Serverless & App Engine": {
+        "commands": [
+            {
+                "full": "gcloud app deploy",
+                "short": "app deploy"
+            },
+            {
+                "full": "gcloud functions deploy",
+                "short": "functions deploy"
+            }
+        ]
+    },
+    "Miscellaneous": {
+        "commands": [
+            {
+                "full": "gcloud services list",
+                "short": "services list"
+            },
+            {
+                "full": "gcloud beta compute instances list",
+                "short": "beta compute list"
+            }
+        ]
+    },
+    "Exit": {
+        "commands": [
+            {
+                "full": "exit",
+                "short": "exit"
+            },
+            {
+                "full": "quit",
+                "short": "quit"
+            }
+        ]
+    },
+    "Wrong Commands": {
+        "commands": [
+            {
+                "full": "gclod init",
+                "suggestion": "Did you mean: gcloud init?"
+            },
+            {
+                "full": "glcoud version",
+                "suggestion": "Did you mean: gcloud version?"
+            }
+        ]
+    }
+}
