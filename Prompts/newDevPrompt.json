@@ -1,0 +1,77 @@
+{
+    "Getting Started": {
+      "Initialize, authorize, and configure the gcloud tool": "gcloud init",
+      "Display version and installed components": "gcloud version",
+      "Install specific components": "gcloud components install <component>",
+      "Update Google Cloud CLI to the latest version": "gcloud components update",
+      "Set a default Google Cloud project": "gcloud config set project <project-id>",
+      "Display current gcloud environment details": "gcloud info"
+    },
+    "Help": {
+      "Search the gcloud tool reference documents": "gcloud help",
+      "Provide feedback to the Google Cloud CLI team": "gcloud feedback",
+      "View supplementary help topics": "gcloud topic <topic>"
+    },
+    "Personalization": {
+      "Set a configuration property": "gcloud config set <property> <value>",
+      "Get value of a configuration property": "gcloud config get <property>",
+      "List all configuration properties": "gcloud config list",
+      "Create a new named configuration": "gcloud config configurations create <name>",
+      "List all available configurations": "gcloud config configurations list",
+      "Activate an existing named configuration": "gcloud config configurations activate <name>"
+    },
+    "Credentials": {
+      "Authorize Google Cloud access": "gcloud auth login",
+      "Activate a service account": "gcloud auth activate-service-account <email>",
+      "List all credentialed accounts": "gcloud auth list",
+      "Display the current access token": "gcloud auth print-access-token",
+      "Revoke access credentials": "gcloud auth revoke <account>"
+    },
+    "Projects": {
+      "Display project metadata": "gcloud projects describe <project-id>",
+      "Add an IAM policy binding": "gcloud projects add-iam-policy-binding <project-id> --member=<member> --role=<role>"
+    },
+    "IAM": {
+      "List IAM grantable roles": "gcloud iam list-grantable-roles <resource>",
+      "Create a custom role": "gcloud iam roles create <role-name>",
+      "Create a service account": "gcloud iam service-accounts create <account-name>",
+      "Add IAM policy binding to service account": "gcloud iam service-accounts add-iam-policy-binding <account>",
+      "Replace IAM policy binding": "gcloud iam service-accounts set-iam-policy <account>",
+      "List service account keys": "gcloud iam service-accounts keys list <account>"
+    },
+    "Docker & GKE": {
+      "Register gcloud as Docker credential helper": "gcloud auth configure-docker",
+      "Create a GKE cluster": "gcloud container clusters create <name>",
+      "List GKE clusters": "gcloud container clusters list",
+      "Get GKE cluster credentials": "gcloud container clusters get-credentials <name>",
+      "List container image tags": "gcloud container images list-tags <image-name>"
+    },
+    "Virtual Machines & Compute Engine": {
+      "List Compute Engine zones": "gcloud compute zones list",
+      "Describe a VM instance": "gcloud compute instances describe <instance>",
+      "List all VM instances": "gcloud compute instances list",
+      "Create a snapshot of a disk": "gcloud compute disks snapshot <disk>",
+      "Describe a snapshot": "gcloud compute snapshots describe <snapshot>",
+      "Delete a snapshot": "gcloud compute snapshots delete <snapshot>",
+      "Connect to a VM via SSH": "gcloud compute ssh <instance>"
+    },
+    "Serverless & App Engine": {
+      "Deploy app to App Engine": "gcloud app deploy",
+      "List all versions of deployed services": "gcloud app versions list",
+      "Open the app in a browser": "gcloud app browse",
+      "Create an App Engine app": "gcloud app create",
+      "Read the latest app logs": "gcloud app logs read"
+    },
+    "Miscellaneous": {
+      "Decrypt ciphertext using Cloud KMS key": "gcloud kms decrypt",
+      "List your project's logs": "gcloud logging logs list",
+      "Display Cloud SQL instance backup info": "gcloud sql backups describe <backup-id>",
+      "Export data from Cloud SQL instance to a SQL file": "gcloud sql export sql <instance> <gcs-path>"
+    },
+    "Exit": {
+        "Press 0 in the keyboard and click Enter or Return": "The program will exit from execution gracefully"
+    },
+    "Wrong command": {
+        "Entered an option which is wrong or does not exist": "Notifies the user to enter the correct option"
+    }
+  }
