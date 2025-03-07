@@ -32,7 +32,7 @@ export function ChatMessages({ messages, isProcessing, messagesEndRef }: ChatMes
   }
 
   return (
-    <ScrollArea className="h-full pb-20">
+    <ScrollArea className="h-full pb-10">
       <div className="flex flex-col gap-6 p-4 pb-20">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full min-h-[60vh]">
