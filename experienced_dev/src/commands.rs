@@ -237,12 +237,12 @@ pub fn handle_command(
         }
         _ => {
             // Check for similar commands
-            if let Some(suggestion) = find_similar_command(&full_command) {
-                println!("\x1b[31m❌ Unknown command: '{}'\x1b[0m", command);
-                println!("\x1b[36m💡 Did you mean: '\x1b[32m{}\x1b[36m'?\x1b[0m", suggestion);
-            } else {
-                println!("\x1b[31m❌ Unknown command! Type 'help' for available commands.\x1b[0m");
-            }
+            let suggestion = find_similar_command(&full_command);
+            println!("\x1b[31m❌ Unknown command: '{}'\x1b[0m", command);
+            println!(
+                "\x1b[36m💡 Did you mean: '\x1b[32m{}\x1b[36m'?\x1b[0m",
+                suggestion.unwrap_or("unknown".to_string())
+            );
         }
     }
 }
