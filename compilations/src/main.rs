@@ -1,42 +1,54 @@
-// main.rs
-mod commands;
-use commands::*;
-use std::collections::HashMap;
-use std::io::{self, Write};
+use std::process::exit;
+use inquire::Select;
 use colored::*;
 
+mod getting_started;
+mod help;
+mod personalization;
+mod credentials;
+mod projects;
+mod iam;
+mod docker_gke;
+mod vm_compute;
+mod serverless;
+mod miscellaneous;
+
 fn main() {
-    println!("🚀 Welcome to Rust GCloud Shell! Type 'help' for available commands.");
-    
+    let categories = vec![
+        "1. Getting Started",
+        "2. Help",
+        "3. Personalization",
+        "4. Credentials",
+        "5. Projects",
+        "6. IAM",
+        "7. Docker & GKE",
+        "8. VM & Compute Engine",
+        "9. Serverless & App Engine",
+        "10. Miscellaneous",
+        "0. Exit",
+    ];
+
     loop {
-        print!("> ");
-        io::stdout().flush().unwrap();
+        let choice = Select::new("\nSelect a category:", categories.clone())
+            .prompt()
+            .unwrap_or_else(|_| "0. Exit");
 
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap();
-        let mut parts = input.trim().split_whitespace();
-        let command = parts.next().unwrap_or("");
-        
-        let args: HashMap<String, String> = parts
-            .filter_map(|arg| arg.split_once('='))
-            .map(|(k, v)| (k.to_string(), v.to_string()))
-            .collect();
-
-        match command {
-            "help" => help::print_help(),
-            "set_defaults" => set_defaults::execute(&args),
-            "create_instance" => create_instance::execute(&args),
-            "create_cluster" => create_cluster::execute(&args),
-            "create_network" => create_network::execute(&args),
-            "add_iam_policy" => add_iam_policy::execute(&args),
-            "remove_iam_policy" => remove_iam_policy::execute(&args),
-            "set_iam_policy" => set_iam_policy::execute(&args),
-            "deploy_app" => deploy_app::execute(&args),
-            "exit" => {
-                println!("👋 Exiting...");
-                break;
+        match choice {
+            "1. Getting Started" => getting_started::run(),
+            "2. Help" => help::run(),
+            "3. Personalization" => personalization::run(),
+            "4. Credentials" => credentials::run(),
+            "5. Projects" => projects::run(),
+            "6. IAM" => iam::run(),
+            "7. Docker & GKE" => docker_gke::run(),
+            "8. VM & Compute Engine" => vm_compute::run(),
+            "9. Serverless & App Engine" => serverless::run(),
+            "10. Miscellaneous" => miscellaneous::run(),
+            "0. Exit" => {
+                println!("\nExiting...");
+                exit(0);
             }
-            _ => { println!("{}", "❌ Unknown command. Type 'help' for available commands.".red()); }
+            _ => println!("{}", "Invalid selection, try again.\n".red()),
         }
     }
 }
