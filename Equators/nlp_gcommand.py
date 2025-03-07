@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
 
 # Set your Gemini API key
-genai.configure(api_key="")
+genai.configure(api_key="AIzaSyBUmapZZX9f5dC0darbYQUrHWra7lUJ_oM")
 
 # Suppress Google Cloud SDK warnings
 os.environ["CLOUDSDK_CORE_DISABLE_PROMPTS"] = "1"
@@ -33,14 +33,17 @@ def get_json_prompt():
         return "{}"  # Return an empty JSON object if file read fails
 
 def nlp_to_gcloud_command(nlp_input):
-    """Convert NLP input to a Google Cloud CLI command using Gemini API."""
+    """Convert NLP input to a Google Cloud CLI command using Gemini API. Auto-correct the input if there's a close match."""
     json_prompt = get_json_prompt()
+   
     prompt = (
         "Convert the following natural language request into a valid Google Cloud CLI command. "
-        "If no exact match is found or spelling mistakes in input prompt, provide the most relevant command. "
+        "If there are spelling mistakes, correct them before generating the command. "
+        "If no exact match is found, provide the most relevant command. "
         "Only return the command without any markdown formatting, explanations, or extra symbols.\n\n"
         f"Request: '{nlp_input}'\nCommand:"
     )
+    
 
     response = genai.GenerativeModel("gemini-2.0-flash").generate_content(prompt)
     
@@ -49,6 +52,16 @@ def nlp_to_gcloud_command(nlp_input):
     print("Command:",command)
     # Ensure output is only the command
     return command if command.startswith("gcloud") else "No valid Google Cloud command found."
+def autocorrect_gcloud_command(command_input):
+    prompt = (
+        "Correct the following Google Cloud CLI command to its proper format. "
+        "Only return the corrected command without any markdown formatting, explanations, or extra symbols.\n\n"
+        f"Command: '{command_input}'\nCorrected Command:"
+    )
+    
+    response = genai.GenerativeModel("gemini-2.0-flash").generate_content(prompt)
+    corrected_command = response.text.strip().replace("```bash", "").replace("```", "").strip()
+    return corrected_command if corrected_command.startswith("gcloud") else command_input
 
 def generate_command(nlp_input, prompt_file):
     """Generate both the full and short form of a command by searching in the given JSON prompt file."""
@@ -92,20 +105,30 @@ def generate_command(nlp_input, prompt_file):
 def process_text():
     """API endpoint to process user input and return both full and short GCloud commands."""
     data = request.json
-    user_text = data.get("text", "")
+    user_text = data.get("text", "").strip()
 
     if not user_text:
         return jsonify({"error": "No input provided"}), 400
 
+    # First, try to autocorrect the command
+    corrected_command = autocorrect_gcloud_command(user_text)
+
+    # If the corrected command is different from the input and starts with 'gcloud', return the corrected version
+    if corrected_command != user_text and corrected_command.startswith("gcloud"):
+        gcloud_command=corrected_command
+    else:
+    # Otherwise, convert NLP input into a GCloud command
+        gcloud_command = nlp_to_gcloud_command(user_text)
+
     # Determine the correct JSON file
     json_file = "newDevPrompt.json" if "new" in user_text.lower() else "expdevprompt.json"
-    command=nlp_to_gcloud_command(user_text)
-    # Generate commands
-    command_output = generate_command(command, json_file)
+
+    # Generate commands based on the converted GCloud command
+    command_output = generate_command(gcloud_command, json_file)
     full_command = command_output.get("full_command", "No full command found.")
     short_command = command_output.get("short_command", "No short command found.")
 
-    return jsonify({"response": [f"Full: {full_command}", f" [ Short: {short_command} ]"]})
+    return jsonify({"response": [f"Full: {full_command}", f"[ Short: {short_command} ]"]})
 
 
 if __name__ == "__main__":

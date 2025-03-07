@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -19,6 +18,31 @@ export function ChatInput({ onSendMessage, isDisabled = false }: ChatInputProps)
   const [isRecording, setIsRecording] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const recognitionRef = useRef<SpeechRecognition | null>(null)
+
+  // Initialize Speech Recognition
+  useEffect(() => {
+    if ("webkitSpeechRecognition" in window) {
+      const recognition = new window.webkitSpeechRecognition()
+      recognition.continuous = false
+      recognition.interimResults = false
+      recognition.lang = "en-US"
+
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript
+        setMessage((prev) => prev + (prev ? " " : "") + transcript)
+      }
+
+      recognition.onerror = (event) => {
+        console.error("Speech Recognition Error:", event)
+        setIsRecording(false)
+      }
+
+      recognition.onend = () => setIsRecording(false)
+
+      recognitionRef.current = recognition
+    }
+  }, [])
 
   // Auto-resize textarea
   useEffect(() => {
@@ -69,15 +93,15 @@ export function ChatInput({ onSendMessage, isDisabled = false }: ChatInputProps)
   }
 
   const toggleRecording = () => {
-    // This would be replaced with actual recording logic
-    setIsRecording(!isRecording)
-    if (!isRecording) {
-      // Start recording
-      console.log("Recording started")
+    if (!recognitionRef.current) return
+
+    if (isRecording) {
+      recognitionRef.current.stop()
     } else {
-      // Stop recording and process
-      console.log("Recording stopped")
+      setMessage("")
+      recognitionRef.current.start()
     }
+    setIsRecording(!isRecording)
   }
 
   return (
@@ -144,9 +168,8 @@ export function ChatInput({ onSendMessage, isDisabled = false }: ChatInputProps)
       </div>
 
       <div className="mt-2 text-xs text-center text-muted-foreground">
-        Type your request in natural language and get the equivalent Google Cloud command.
+        Type your request in natural language or use voice input to get the equivalent Google Cloud command.
       </div>
     </div>
   )
 }
-
