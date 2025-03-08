@@ -5,6 +5,7 @@ By leveraging the power of both the command line
 
 
 and a graphical user interface (GUI)-like experience, 
+
 <img width="479" alt="image" src="https://github.com/user-attachments/assets/919d07c8-e8cc-475b-85ad-15d67924ac01" />
 
 GCLI provides a flexible, user-friendly method for managing Google Cloud resources. This hybrid approach combines the speed and power of a CLI with the intuitive usability of a graphical interface, making it suitable for developers of all levels.
@@ -20,11 +21,17 @@ In the below image is a quick glance on our custome made cdommands along with th
 
 A standout feature of GCLI is its integration with the Gemini UI, which enhances the user experience by allowing users to interact with the custom CLI through an intuitive graphical interface. This integration enables users to ask questions about the available commands, view detailed information, and receive real-time feedback on their queries, creating a more accessible and efficient workflow. The Gemini UI not only offers a GUI-like experience but also interacts directly with the CLI commands, enabling the best of both worlds for users—whether you're an experienced developer or a beginner. This makes it easier for users to navigate and operate the tool without memorizing every command, ensuring an interactive and seamless experience while managing Google Cloud resources.
 
+<img width="1007" alt="image" src="https://github.com/user-attachments/assets/80445707-ef3f-44ef-8a96-c39b71acb070" />
 
 We have also implemented short hand notations and grouping of similar commands for improved agility and felexibility for seasoned developers.
 
 <img width="670" alt="image" src="https://github.com/user-attachments/assets/38d867f5-f16d-4d83-860d-40e35bdc855b" />
 <img width="596" alt="image" src="https://github.com/user-attachments/assets/e3458232-2d0e-4449-853f-e11619027f2b" />
+
+Our CCLI commands are alos compatible with Fuzzy Search where the users can simply type first few letters and the CLI will automatically emerge:
+
+<img width="525" alt="image" src="https://github.com/user-attachments/assets/af64821c-4b81-40f0-9877-115cab5dc9d6" />
+
 
 
 ## Installation Instructions for macOS
