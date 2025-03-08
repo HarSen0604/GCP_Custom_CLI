@@ -92,17 +92,9 @@ a. For running in newDev mode, use:
 a. In the nlp_gcommand.py file, locate the section where the Gemini API key is required, and add your API key there to allow the script to communicate with the Gemini API.
 
 ## Notes:
-Gemini API Key: Make sure you have the Gemini API key and place it in the appropriate section of the nlp_gcommand.py file as described in the script's documentation or comments.
-Directory Structure: Ensure that the directory structure is set up as per the instructions to avoid issues with file paths.
-Python and Rust Versions: Ensure you have the required versions of Python and Rust installed on your machine.
-Example Execution Flow:
-For experiencedDev Mode:
+**Gemini API Key**: Make sure you have the Gemini API key and place it in the appropriate section of the nlp_gcommand.py file as described in the script's documentation or comments.
 
-Copy your code to the project directory.
-Build and run the Rust project using cargo build and cargo run.
-For Equators, copy the JSON files to the appropriate directory, install Python dependencies using pip install -r requirements.txt, and then run the Python script in experiencedDev mode.
-For newDev Mode:
+**Directory Structure**: Ensure that the directory structure is set up as per the instructions to avoid issues with file paths.
 
-The steps are similar, except you'll run the script in newDev mode as indicated.
-
+**Python and Rust Versions**: Ensure you have the required versions of Python and Rust installed on your machine.
 
